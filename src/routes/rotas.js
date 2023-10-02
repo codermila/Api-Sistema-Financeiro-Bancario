@@ -1,7 +1,7 @@
 const express = require('express');
 const { listarContas, criarConta, atualizarConta, excluirConta, consultarSaldo, listarExtrato } = require('../controllers/contas');
 const { depositar, sacar, transferir } = require('../controllers/transacoes');
-const { validarSenha, validarCamposRequisicao, verificarExistenciaContaParams, validarSenhaQuery, verificarExistenciaContaQuery, validarSenhaConta, verificarExistenciaContaDepositoeSaque, validarContaParaTransferencia, validarSaldoParaExtrato } = require('../middlewares/intermediarios');
+const { validarSenha, validarCamposRequisicao, verificarExistenciaContaParams, validarSenhaConta, verificarExistenciaContaDepositoeSaque, validarContaParaTransferencia, validarSaldoParaExtrato } = require('../middlewares/intermediarios');
 
 const rotas = express();
 
