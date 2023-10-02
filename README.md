@@ -61,3 +61,15 @@ npm run dev
 - [ ] **GET** "/contas/saldo" = Consultar saldo da conta bancária;
 - [ ] **GET** "/contas/extrato" = Emitir extrato bancário.
 
+## 🚧 Executando o projeto no Insomnia:
+
+![Insomnia](https://img.shields.io/badge/Insomnia-5849be?style=for-the-badge&logo=Insomnia&logoColor=white)
+
+### Criar contras bancarias:
+##### **POST** "/contas" = Criar contas bancárias;
+
+![putcontas](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/8281f9a0-d59a-4e76-8b53-f81cd23c73d4)
+
+#### **GET** "/contas" = Listar contas bancárias;
+
+![getcontas](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/bd525831-97f2-4318-b7e0-d1589abf747f)
