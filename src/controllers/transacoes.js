@@ -1,5 +1,17 @@
 const { contas, depositos, saques, transferencias } = require('../database/bancodedados');
 
+const horario = () => {
+    const dataHora = new Date()
+    const ano = dataHora.getFullYear();
+    const mes = String(dataHora.getMonth() + 1).padStart(2, '0')
+    const dia = String(dataHora.getDate()).padStart(2, '0')
+    const hora = String(dataHora.getHours()).padStart(2, '0')
+    const minuto = String(dataHora.getMinutes()).padStart(2, '0')
+    const segundo = String(dataHora.getSeconds()).padStart(2, '0')
+    const dataFormatada = `${ano}-${mes}-${dia} ${hora}:${minuto}:${segundo}`
+    return dataFormatada;
+};
+
 const depositar = (req, res) => {
     const { numero_conta, valor } = req.body;
 
@@ -28,7 +40,7 @@ const depositar = (req, res) => {
 }
 
 const sacar = (req, res) => {
-    const { numero_conta, valor, senha } = req.body;
+    let { numero_conta, valor, senha } = req.body;
 
     if (!valor || !numero_conta || !senha) {
         return res.status(400).json({ mensagem: "O número da conta, o valor e a senha são obrigatórios!" });
@@ -55,44 +67,34 @@ const sacar = (req, res) => {
 
 }
 
+
 const transferir = (req, res) => {
-    const { numero_conta_origem, numero_conta_destino, valor, senha } = req.body;
+    let { numero_conta_origem, numero_conta_destino, valor } = req.body
+    numero_conta_origem = Number(numero_conta_origem)
+    numero_conta_destino = Number(numero_conta_destino)
+    valor = Number(valor)
 
-    if (!valor || !numero_conta_origem || !senha || !numero_conta_destino) {
-        return res.status(400).json({ mensagem: "O número da conta de origem, o número da conta de destino, o valor e a senha são obrigatórios!" });
-    }
+    const contaOrigem = contas.find((conta) => {
+        return conta.numero === numero_conta_origem
+    })
 
-    const indiceOrigem = contas.findIndex(conta => conta.numero === Number(numero_conta_origem));
+    const contaDestino = contas.find((conta) => {
+        return conta.numero === numero_conta_destino
+    })
 
-    if (indiceOrigem < 0) {
-        return res.status(404).json({ mensagem: "Conta bancaria não encontrada!" });
-    }
+    contaOrigem.saldo -= valor
+    contaDestino.saldo += valor
 
-    const indiceDestino = contas.findIndex(conta => conta.numero === Number(numero_conta_destino));
-
-    if (indiceDestino < 0) {
-        return res.status(404).json({ mensagem: "Conta bancaria não encontrada!" });
-    }
-
-    if (contas[indiceOrigem].saldo < Number(valor)) {
-        return res.status(400).json({ mensagem: "Saldo insuficiente!" });
-    }
-
-    contas[indiceOrigem].saldo -= valor;
-    contas[indiceDestino].saldo += valor;
-
-    const dataAtual = new Date();
-    const data = format(dataAtual, "yyyy-mm-dd hh:mm:ss");
-
-    transferencias.push({
-        data,
+    const registro = {
+        data: horario(),
         numero_conta_origem,
         numero_conta_destino,
         valor
-    });
+    }
 
-    return res.status(204).json();
-}
+    transferencias.push(registro)
+    res.status(200).json()
+};
 
 module.exports = {
     depositar,

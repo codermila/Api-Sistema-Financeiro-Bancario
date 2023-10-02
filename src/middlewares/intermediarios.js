@@ -14,43 +14,37 @@ const validarSenha = (req, res, next) => {
     next();
 }
 
-const validarSenhaBody = (req, res, next) => {
-    const { numero_conta, numero_conta_origem, valor, senha } = req.body;
 
-    if (!senha) {
-        response.status(401).json({ mensagem: 'Senha não informada!' });
+const validarSenhaConta = (req, res, next) => {
+    const { numero_conta, senha } = req.body
+
+    const contaParaVerificar = contas.find((conta) => {
+        return conta.numero === Number(numero_conta)
+    })
+
+    if (contaParaVerificar.usuario.senha != senha) {
+        return res.status(401).json({ mensagem: "senha incorreta!" })
     }
 
-    const indiceConta = contas.findIndex(conta => conta.numero === Number(numero_conta));
+    next()
+};
 
-    if (contas[indiceConta].usuario.senha !== senha) {
-        return res.status(401).json({ mensagem: "Senha incorreta!" });
-    }
+const validarSaldoParaExtrato = (req, res, next) => {
 
-    const indiceContaOrigem = contas.findIndex(conta => conta.numero === Number(numero_conta_origem));
+    const { numero_conta, senha } = req.query;;;
 
-    if (contas[indiceContaOrigem].usuario.senha !== senha) {
-        return res.status(401).json({ mensagem: "Senha incorreta!" });
-    }
+    const contaParaVerificar = contas.find((conta) => {
+        return conta.numero === Number(numero_conta);
+    });
 
+    if (!contaParaVerificar) {
+        return res.status(404).json({ mensagem: "A conta bancária não foi encontrada!" });
+    };
+    if (contaParaVerificar.usuario.senha != Number(senha)) {
+        return res.status(403).json({ mensagem: "senha incorreta!" });
+    };
     next();
-}
-
-const validarSenhaQuery = (req, res, next) => {
-    const { numero_conta, numero_conta_origem, valor, senha } = req.query;
-
-    if (!senha) {
-        response.status(401).json({ mensagem: 'Senha não informada!' });
-    }
-
-    const indiceConta = contas.findIndex(conta => conta.numero === Number(numero_conta));
-
-    if (contas[indiceConta].usuario.senha !== senha) {
-        return res.status(401).json({ mensagem: "Senha incorreta!" });
-    }
-
-    next();
-}
+};
 
 const validarCamposRequisicao = (req, res, next) => {
     const { nome, cpf, data_nascimento, telefone, email, senha } = req.body;
@@ -103,30 +97,56 @@ const verificarExistenciaContaParams = (req, res, next) => {
     next();
 }
 
-const verificarExistenciaContaBody = (req, res, next) => {
-    const { numero_conta } = req.body;
+const validarContaParaTransferencia = (req, res, next) => {
+    const { numero_conta_origem, numero_conta_destino, valor, senha } = req.body
 
-    if (isNaN(Number(numero_conta))) {
-        return res.status(400).json({ mensagem: "O número informado não é válido" });
-    }
+    const contaOrigem = contas.find((conta) => {
+        return conta.numero === Number(numero_conta_origem)
+    });
 
-    const contaExistente = contas.find(conta => conta.numero === Number(numero_conta));
-    const indiceConta = contas.findIndex(conta => conta.numero === Number(req.params.numeroConta));
+    const contaDestino = contas.find((conta) => {
+        return conta.numero === Number(numero_conta_destino)
+    });
 
-    if (indiceConta < 0 && !contaExistente) {
-        return res.status(404).json({ mensagem: "Não existe conta para o numero informado." });
-    }
+    if (!contaOrigem || !contaDestino) {
+        return res.status(404).json({ mesagem: "A conta de destino ou origem não existe!" })
+    };
+
+    if (Number(senha) != contaOrigem.usuario.senha) {
+        return res.status(403).json({ mensagem: "Senha incorreta!" })
+    };
+
+    if (valor > contaOrigem.saldo || valor <= 0) {
+        return res.status(400).json({ mensagem: "Saldo insufiente!" })
+    };
 
     next();
-}
+};
+
+
+const verificarExistenciaContaDepositoeSaque = (req, res, next) => {
+    const { numero_conta } = req.body
+
+    const contaParaAtualizar = contas.some((conta) => {
+        return conta.numero === Number(numero_conta)
+    })
+
+    if (!contaParaAtualizar) {
+        return res.status(404).json({ mensagem: "a conta informada não foi encontrada!" })
+    } else {
+        next()
+    }
+};
+
 
 module.exports = {
     validarSenha,
-    validarSenhaBody,
-    validarSenhaQuery,
-    verificarExistenciaContaBody,
+    validarSenhaConta,
+    validarSaldoParaExtrato,
+    verificarExistenciaContaDepositoeSaque,
     verificarExistenciaContaParams,
     verificarExistenciaContaQuery,
     verificarNumeroConta,
-    validarCamposRequisicao
+    validarCamposRequisicao,
+    validarContaParaTransferencia
 }

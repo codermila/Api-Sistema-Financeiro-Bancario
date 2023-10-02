@@ -76,35 +76,43 @@ const excluirConta = (req, res) => {
 }
 
 const consultarSaldo = (req, res) => {
-    const { numero_conta, senha } = req.query;
+    const { numero_conta } = req.query;
 
-    if (!senha || !numero_conta) {
-        return res.status(400).json({ mensagem: "A senha e o numero da conta devem ser informado." });
-    }
+    const contaParaVerificar = contas.find((conta) => {
+        return conta.numero === Number(numero_conta);
+    });
 
-    const saldo = { saldo: contas[indiceConta].saldo }
-
-    return res.json(saldo);
-}
+    res.status(200).json({ saldo: contaParaVerificar.saldo });
+};
 
 const listarExtrato = (req, res) => {
-    const { numero_conta, senha } = req.query;
+    let { numero_conta } = req.query
+    numero_conta = Number(numero_conta)
 
-    if (!senha || !numero_conta) {
-        return res.status(400).json({ mensagem: "A senha e o numero da conta devem ser informado." });
-    }
+    const depositosDaConta = depositos.filter((deposito) => {
+        return deposito.numero_conta === numero_conta
+    })
 
-    const transferenciasEnviadas = transferencias.filter((transferencia) => transferencia.numero_conta_origem === numero_conta)
-    const transferenciasRecebidas = transferencias.filter((transferencia) => transferencia.numero_conta_origem !== numero_conta)
+    const saquesDaConta = saques.filter((saques) => {
+        return saques.numero_conta === numero_conta
+    })
 
-    const extrato = {
-        depositos,
-        saques,
+    const transferenciasEnviadas = transferencias.filter((transferencia) => {
+        return transferencia.numero_conta_origem === numero_conta
+    })
+
+    const transferenciasRecebidas = transferencias.filter((transferencia) => {
+        return transferencia.numero_conta_destino === numero_conta
+    })
+
+
+    res.status(200).json({
+        depositos: depositosDaConta,
+        saques: saquesDaConta,
         transferenciasEnviadas,
         transferenciasRecebidas
-    }
+    })
 
-    return res.json(extrato);
 }
 
 module.exports = {
