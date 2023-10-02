@@ -92,6 +92,9 @@ npm run dev
 #### **POST** "/transacoes/transferir" = Transferir valores entre contas bancárias;
 ![posttransferir](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/99f36354-dc46-46c3-bec2-b3871c6365b1)
 
-- [ ] **GET** "/contas/saldo" = Consultar saldo da conta bancária;
+#### **GET** "/contas/saldo" = Consultar saldo da conta bancária;
+  ![getsaldo](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/a5156f8d-1295-44ff-988b-a45a1086ccd9)
 
-- [ ] **GET** "/contas/extrato" = Emitir extrato bancário.
+#### **GET** "/contas/extrato" = Emitir extrato bancário.
+![getextrato](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/ada564a0-dda8-4fca-a6c9-4606b339dea1)
+
