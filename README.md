@@ -104,3 +104,4 @@ npm run dev
 ![gifmaker_me](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/9bda2adc-14cc-463b-95cf-b4ad22207c88)
 
 Ludmila Aredes em outubro de 2023.
+###### tags: `back-end` `módulo 2` `nodeJS` `API REST` `desafio`
