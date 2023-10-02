@@ -98,3 +98,6 @@ npm run dev
 #### **GET** "/contas/extrato" = Emitir extrato bancário.
 ![getextrato](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/ada564a0-dda8-4fca-a6c9-4606b339dea1)
 
+### 👩🏻‍💻  Autora:
+
+
