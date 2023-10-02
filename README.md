@@ -61,3 +61,43 @@ npm run dev
 - [ ] **GET** "/contas/saldo" = Consultar saldo da conta bancária;
 - [ ] **GET** "/contas/extrato" = Emitir extrato bancário.
 
+## 🚧 Executando o projeto no Insomnia:
+
+![Insomnia](https://img.shields.io/badge/Insomnia-5849be?style=for-the-badge&logo=Insomnia&logoColor=white)
+
+### Criar contras bancarias:
+##### **POST** "/contas" = Criar contas bancárias;
+
+![putcontas](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/8281f9a0-d59a-4e76-8b53-f81cd23c73d4)
+
+#### **GET** "/contas" = Listar contas bancárias;
+
+![getcontas](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/bd525831-97f2-4318-b7e0-d1589abf747f)
+
+#### **PUT** "/contas/:numeroConta/usuario" = Atualizar os dados do usuário da conta bancária;
+
+![putatualizar](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/22677983-8724-49a2-88b2-a38964fd3ad4)
+
+#### **DELETE** "/contas/:numeroConta" = Excluir uma conta bancária;
+![deleteconta](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/61e7bd9a-0367-4f84-8e39-fcf5d32449e7)
+##### Listagem atualizada apos deletar conta:
+![listaatualizadaposdelete](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/783b2f5f-92e4-4247-a65c-4180e778e5b0)
+
+#### **POST** "/transacoes/depositar" = Depósitar em uma conta bancária;
+![transacoesdepositar](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/2370bb34-7229-44f2-88f4-cded88bef163)
+
+#### **POST** "/transacoes/sacar" = Sacar de uma conta bancária;
+![transacoesdepositar](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/f3c69c45-b0ae-4324-9409-0d684889a092)
+
+#### **POST** "/transacoes/transferir" = Transferir valores entre contas bancárias;
+![posttransferir](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/99f36354-dc46-46c3-bec2-b3871c6365b1)
+
+#### **GET** "/contas/saldo" = Consultar saldo da conta bancária;
+  ![getsaldo](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/a5156f8d-1295-44ff-988b-a45a1086ccd9)
+
+#### **GET** "/contas/extrato" = Emitir extrato bancário.
+![getextrato](https://github.com/codermila/Api-Sistema-Financeiro-Bancario/assets/141371216/ada564a0-dda8-4fca-a6c9-4606b339dea1)
+
+### 👩🏻‍💻  Autora:
+
+
