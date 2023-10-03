@@ -61,7 +61,7 @@ npm run dev
 - [ ] **GET** "/contas/saldo" = Consultar saldo da conta bancária;
 - [ ] **GET** "/contas/extrato" = Emitir extrato bancário.
 
-## 🚧 Executando o projeto no Insomnia:
+## 🏁 Executando o projeto no Insomnia:
 
 ![Insomnia](https://img.shields.io/badge/Insomnia-5849be?style=for-the-badge&logo=Insomnia&logoColor=white)
 
